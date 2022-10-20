@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include( './includes/head' ,{siteTitle:`${post.title} | ${themeConfig.siteName}`}) %>
+        <meta name="description" content="<%- post.description %>" />
+        <meta name="keywords" content="<%- post.tags.map(tag => tag.name).join(',') %>" />
+        <!-- OG -->
+        <meta property="og:locale" content="zh_CN">
+        <meta property="og:title" content="<%= post.title %>" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="<%= post.description %>">
+        <meta property="og:url" content="<%= post.link %>" />
+        <meta property="og:site_name" content="<%= themeConfig.siteName %>">
+        <meta property="og:updated_time" content="<%= post.dateFormat %>">
+        <meta property="og:image" content="<%= post.feature %>" />
+        <meta property="og:image:secure_url" content="<%= post.feature %>">
+        <meta property="og:image:alt" content="<%= post.title %>">
+        <!-- Twitter (post.ejs) -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="<%= post.title %>">
+        <meta name="twitter:description" content="<%= post.description %>">
+        <!-- <meta name="twitter:site" content="@WBoy0609">
+        <meta name="twitter:creator" content="@WBoy0609"> -->
+        <meta name="twitter:image" content="<%= post.feature %>">
+</head>
+
+<body>
+    <div class="main animated">
+        <%- include( './includes/header' ) %>
+            <div class="autopagerize_page_element">
+                <div class="content">
+                    <div class="post_page">
+                        <div class="post animated fadeInDown">
+                            <div class="post_title post_detail_title">
+                                <h2>
+                                    <%= post.title %>
+                                </h2>
+                                <span class="article-info">
+                                    <%= post.dateFormat %>, <%= post.stats.words %> words, <%= post.stats.text %>
+                                </span>
+                            </div>
+                            <div class="post_content markdown">
+                                <p class="md_block">
+                                    <span class="md_line md_line_start md_line_end">
+                                        <%- post.content %><br />
+                                            <% if(site.customConfig.copyright){ %>
+                                                <span class="copyright">· 转载请注明 <%- post.link %> </span>
+                                    </span>
+                                    <% } %>
+                                </p>
+                            </div>
+                            <div class="post_footer">
+                                <% if(post.tags.length> 0) { %>
+                                    <div class="meta">
+                                        <div class="info"><span class="field tags"><i class="iconfont icon-tag-sm"></i>
+                                                <% post.tags.forEach(function(tag){ %>
+                                                    <a href="<%= tag.link %>" class="article-info">
+                                                        <%= tag.name %>
+                                                    </a>
+                                                    <% }); %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                        <% if (post.nextPost && !post.hideInList) { %>
+                                            <div class="next-post" style="margin-top: 20px;">
+                                                <div class="next">下一篇</div>
+                                                <a href="<%= post.nextPost.link %>">
+                                                    <h3 class="post-title">
+                                                        <%= post.nextPost.title %>
+                                                    </h3>
+                                                </a>
+                                            </div>
+                                            <% } %>
+                            </div>
+                        </div>
+                        <% if(typeof commentSetting !=='undefined' && commentSetting.showComment){ %>
+                            <% if(commentSetting.commentPlatform==='gitalk' ){ %>
+                                <%- include( './includes/gitalk' ) %>
+                                    <% } %>
+                                        <% if(commentSetting.commentPlatform==='disqus' ){ %>
+                                            <%- include( './includes/disqus' ) %>
+                                                <% } %>
+                                                    <% } %>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <%- include( './includes/footer' ) %>
+        <link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.5.1/styles/default.min.css">
+        <script src="//unpkg.com/@highlightjs/cdn-assets@11.5.1/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+</body>
+
+</html>

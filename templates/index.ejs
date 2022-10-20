@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./includes/head', { siteTitle: themeConfig.siteName }) %>
+        <!-- OG -->
+        <meta property="og:locale" content="zh_CN">
+        <meta property="og:title" content="<%= themeConfig.siteName %>" />
+        <meta property="og:type" content="blog" />
+        <meta property="og:description" content="<%= themeConfig.siteDescription %>">
+        <meta property="og:url" content="<%= themeConfig.domain %>" />
+        <meta property="og:site_name" content="<%= themeConfig.siteName %>">
+        <meta property="og:image" content="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>" />
+        <meta property="og:image:secure_url"
+            content="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>">
+        <meta property="og:image:height" content="300" />
+        <meta property="og:image:alt" content="<%= themeConfig.siteName %>">
+        <!-- Twitter (index.ejs) -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="<%= themeConfig.siteName %>">
+        <meta name="twitter:description" content="<%= themeConfig.siteDescription %>">
+        <!-- <meta name="twitter:site" content="@WBoy0609">
+        <meta name="twitter:creator" content="@WBoy0609"> -->
+        <meta name="twitter:image" content="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>">
+</head>
+
+<body>
+    <div class="main animated">
+        <%- include('./includes/header') %>
+            <%- include('./includes/post-list') %>
+    </div>
+    <%- include('./includes/footer') %>
+</body>
+
+</html>
